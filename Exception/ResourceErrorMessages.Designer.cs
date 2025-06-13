@@ -70,6 +70,15 @@ namespace Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error messages cannot be null..
+        /// </summary>
+        public static string ERROR_CANNOT_BE_NULL {
+            get {
+                return ResourceManager.GetString("ERROR_CANNOT_BE_NULL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date cannot be in the future..
         /// </summary>
         public static string EXPENSES_CANNOT_FOR_THE_FUTURE {

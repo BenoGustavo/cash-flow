@@ -120,6 +120,9 @@
   <data name="AMOUNT_MUST_BE_GREATER_THAN_ZERO" xml:space="preserve">
     <value>Amount must be greater than zero.</value>
   </data>
+  <data name="ERROR_CANNOT_BE_NULL" xml:space="preserve">
+    <value>Error messages cannot be null.</value>
+  </data>
   <data name="EXPENSES_CANNOT_FOR_THE_FUTURE" xml:space="preserve">
     <value>Date cannot be in the future.</value>
   </data>
