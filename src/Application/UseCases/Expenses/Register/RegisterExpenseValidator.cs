@@ -1,4 +1,5 @@
 ﻿using Communication.Requests;
+using Exception;
 using FluentValidation;
 
 namespace Application.UseCases.Expenses.Register
@@ -7,15 +8,15 @@ namespace Application.UseCases.Expenses.Register
     {
         public RegisterExpenseValidator() 
         {
-            RuleFor(Expenses => Expenses.Title).NotEmpty().WithMessage("Title cannot be empty or null.");
-            RuleFor(Expenses => Expenses.Amount).GreaterThan(0).WithMessage("Amount must be greater than zero.");
+            RuleFor(Expenses => Expenses.Title).NotEmpty().WithMessage(ResourceErrorMessages.TITLE_REQUIRED);
+            RuleFor(Expenses => Expenses.Amount).GreaterThan(0).WithMessage(ResourceErrorMessages.AMOUNT_MUST_BE_GREATER_THAN_ZERO);
             RuleFor(Expenses => Expenses.Date)
                 .LessThanOrEqualTo(DateTime.UtcNow)
-                .WithMessage("Date cannot be in the future.");
+                .WithMessage(ResourceErrorMessages.EXPENSES_CANNOT_FOR_THE_FUTURE);
             RuleFor(Expenses => Expenses.PaymentMethod).NotEmpty()
-                .WithMessage("Payment method cannot be empty or null.")
+                .WithMessage(ResourceErrorMessages.PAYMENT_METHOD_CANNOT_BE_NULL)
                 .IsInEnum()
-                .WithMessage("Invalid payment method.");
+                .WithMessage(ResourceErrorMessages.INVALID_PAYMENT_METHOD);
 
         }
     }
