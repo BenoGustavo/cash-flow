@@ -11,12 +11,18 @@ namespace CashFlow.Api.Middleware
         }
         public async Task Invoke(HttpContext context)
         {
-            string? culture = context.Request.Headers.AcceptLanguage.FirstOrDefault(); 
+            var supportedCultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
-            var cultureInfo = new CultureInfo(culture ?? "en");
+            string requestedCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault() ?? "en";
 
-            if (string.IsNullOrWhiteSpace(culture) == false) { 
-                cultureInfo = new CultureInfo(culture);
+            var cultureInfo = new CultureInfo(requestedCulture);
+
+            var isCultureValid = 
+                string.IsNullOrWhiteSpace(requestedCulture) == false
+                && supportedCultures.Exists(culture => culture.Name.Equals(requestedCulture));
+
+            if (isCultureValid) { 
+                cultureInfo = new CultureInfo(requestedCulture);
             }
 
             CultureInfo.CurrentCulture = cultureInfo;
