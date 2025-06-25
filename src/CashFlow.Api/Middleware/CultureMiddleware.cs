@@ -11,11 +11,12 @@ namespace CashFlow.Api.Middleware
         }
         public async Task Invoke(HttpContext context)
         {
+            var cultureInfo = new CultureInfo("en");
+
             var supportedCultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
             string requestedCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault() ?? "en";
 
-            var cultureInfo = new CultureInfo(requestedCulture);
 
             var isCultureValid = 
                 string.IsNullOrWhiteSpace(requestedCulture) == false

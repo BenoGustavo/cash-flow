@@ -1,30 +1,53 @@
 ﻿using Communication.Enums;
 using Communication.Requests;
 using Communication.Responses;
+using Domain.Entities;
+using Domain.Repositories;
+using Domain.Repositories.Expenses;
+using Exception.ExceptionsBase;
 
-namespace Application.UseCases.Expenses.Register
+namespace Application.UseCases.Expenses.Register;
+
+public class RegisterExpensesUseCase : IRegisterExpensesUseCase
 {
-    public class RegisterExpensesUseCase
+    private readonly IExpensesRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
+    public RegisterExpensesUseCase(IExpensesRepository repository, IUnitOfWork unitOfWork)
     {
-        public ResponseRegisteredExpenseJson Execute(RequestRegisterExpenseJson request)
+        _repository = repository;
+        _unitOfWork = unitOfWork;
+    }
+    public async Task<ResponseRegisteredExpenseJson> Execute(RequestRegisterExpenseJson request)
+    {
+        this.Validate(request);
+
+        var expense = new Expense
         {
-            this.Validate(request);
+            Amount = request.Amount,
+            Date = request.Date,
+            Description = request.Description,
+            Title = request.Title,
+            PaymentMethod = (Domain.Enums.PaymentMethodEnum)request.PaymentMethod,
+        };
 
-            return new ResponseRegisteredExpenseJson();
-        }
+        await this._repository.Add(expense);
 
-        public void Validate(RequestRegisterExpenseJson request)
+        await this._unitOfWork.Commit();
+
+        return new ResponseRegisteredExpenseJson();
+    }
+
+    public void Validate(RequestRegisterExpenseJson request)
+    {
+        var validator = new RegisterExpenseValidator();
+
+        var result = validator.Validate(request);
+
+        var errorMessages = result.Errors.Select(Error => Error.ErrorMessage).ToList();
+
+        if (!result.IsValid)
         {
-            var validator = new RegisterExpenseValidator();
-
-            var result = validator.Validate(request);
-
-            var errorMessages = result.Errors.Select(Error => Error.ErrorMessage).ToList();
-
-            if (!result.IsValid)
-            {
-                throw new ArgumentException(string.Join(Environment.NewLine, errorMessages));
-            }
+            throw new ErrorOnValidationException(errorMessages);
         }
     }
 }
