@@ -1,5 +1,6 @@
 ﻿using Application.AutoMapper;
 using Application.UseCases.Expenses.GetAll;
+using Application.UseCases.Expenses.GetById;
 using Application.UseCases.Expenses.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,5 +23,6 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IRegisterExpensesUseCase, RegisterExpensesUseCase>();
         services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
+        services.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
     }
 }
