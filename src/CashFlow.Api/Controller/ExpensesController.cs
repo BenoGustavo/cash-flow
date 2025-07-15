@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.Expenses.GetAll;
+using Application.UseCases.Expenses.GetById;
 using Application.UseCases.Expenses.Register;
 using Communication.Requests;
 using Communication.Responses;
@@ -34,6 +35,16 @@ namespace CashFlow.Api.Controller
             if (response.Expenses.Count != 0) return Ok(response);
 
             return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseExpenseJson))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResponseErrorJson))]
+        public async Task<IActionResult> GetById([FromRoute] long id, [FromServices] IGetExpenseByIdUseCase useCase)
+        {
+                var response = await useCase.Execute(id);
+
+                return Ok(response);
         }
     }
 }
