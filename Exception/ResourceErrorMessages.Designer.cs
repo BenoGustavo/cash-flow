@@ -10,8 +10,8 @@
 
 namespace Exception {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,15 +23,15 @@ namespace Exception {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ResourceErrorMessages {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal ResourceErrorMessages() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace Exception {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace Exception {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Amount must be greater than zero..
         /// </summary>
@@ -68,7 +68,7 @@ namespace Exception {
                 return ResourceManager.GetString("AMOUNT_MUST_BE_GREATER_THAN_ZERO", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Error messages cannot be null..
         /// </summary>
@@ -77,7 +77,7 @@ namespace Exception {
                 return ResourceManager.GetString("ERROR_CANNOT_BE_NULL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Date cannot be in the future..
         /// </summary>
@@ -86,7 +86,7 @@ namespace Exception {
                 return ResourceManager.GetString("EXPENSES_CANNOT_FOR_THE_FUTURE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid payment method..
         /// </summary>
@@ -95,7 +95,7 @@ namespace Exception {
                 return ResourceManager.GetString("INVALID_PAYMENT_METHOD", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Payment method cannot be empty or null..
         /// </summary>
@@ -104,7 +104,7 @@ namespace Exception {
                 return ResourceManager.GetString("PAYMENT_METHOD_CANNOT_BE_NULL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Title cannot be empty or null..
         /// </summary>
@@ -113,13 +113,20 @@ namespace Exception {
                 return ResourceManager.GetString("TITLE_REQUIRED", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to An unknown error occurred..
         /// </summary>
         public static string UNKNOWN_ERROR {
             get {
                 return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+
+        public static string ID_MUST_BE_GREATER_THAN_ZERO
+        {
+            get {
+                return ResourceManager.GetString("ID_MUST_BE_GREATER_THAN_ZERO", resourceCulture);
             }
         }
     }
