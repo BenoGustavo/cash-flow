@@ -9,10 +9,10 @@ namespace Application.UseCases.Expenses.GetById;
 public class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
 {
     readonly IMapper _mapper;
-    readonly IExpensesRepository _expensesRepository;
+    readonly IExpensesReadOnlyRepository _expensesRepository;
 
     public GetExpenseByIdUseCase(
-        IExpensesRepository expensesRepository,
+		IExpensesReadOnlyRepository expensesRepository,
         IMapper mapper
     )
     {

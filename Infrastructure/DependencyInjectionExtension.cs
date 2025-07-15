@@ -19,10 +19,11 @@ public static class DependencyInjectionExtension
     public static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IExpensesRepository, ExpensesRepository>();
-    }
+        services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepository>();
+		services.AddScoped<IExpensesWriteOnlyRepository, ExpensesRepository>();
+	}
 
-    public static void AddDbContext(IServiceCollection services, IConfiguration configurations)
+	public static void AddDbContext(IServiceCollection services, IConfiguration configurations)
     {
 
         var connectionString = configurations.GetConnectionString("DefaultConnection");

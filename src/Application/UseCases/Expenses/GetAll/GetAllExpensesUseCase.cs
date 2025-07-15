@@ -7,11 +7,11 @@ namespace Application.UseCases.Expenses.GetAll;
 
 public class GetAllExpensesUseCase : IGetAllExpensesUseCase
 {
-    private readonly IExpensesRepository _repository;
+    private readonly IExpensesReadOnlyRepository _repository;
     private readonly IMapper _mapper;
 
     public GetAllExpensesUseCase(
-        IExpensesRepository repository,
+		IExpensesReadOnlyRepository repository,
         IMapper mapper
     )
     {
