@@ -1,6 +1,7 @@
 using AutoMapper;
 using Communication.Responses;
 using Domain.Repositories.Expenses;
+using Exception;
 using Exception.ExceptionsBase;
 
 namespace Application.UseCases.Expenses.GetById;
@@ -23,6 +24,11 @@ public class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
         this.Validate(id);
 
         var expense = await _expensesRepository.GetById(id);
+
+        if (expense == null)
+        {
+            throw new NotFoundException(ResourceErrorMessages.EXPENSE_NOT_FOUND);
+        }
 
         return _mapper.Map<ResponseExpenseJson>(expense);
     }
