@@ -27,27 +27,29 @@ namespace CashFlow.Api.Filters
             }
         }
 
-        private void HandleProjectException(ExceptionContext context)
-        {
-            switch (context.Exception)
-            {
-                case ErrorOnValidationException validationException:
-                    var ex = (ErrorOnValidationException)context.Exception;
+		private void HandleProjectException(ExceptionContext context)
+		{
+			if (context.Exception is ErrorOnValidationException validationException)
+			{
+				var validationResponse = new ResponseErrorJson(validationException.GetErrors());
+				context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+				context.Result = new BadRequestObjectResult(validationResponse);
+			}
+			else if (context.Exception is NotFoundException notFoundException)
+			{
+				var notFoundResponse = new ResponseErrorJson(notFoundException.GetErrors());
+				context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+				context.Result = new BadRequestObjectResult(notFoundResponse);
+			}
+			else
+			{
+				var errorResponse = new ResponseErrorJson(context.Exception.Message);
+				context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+				context.Result = new BadRequestObjectResult(errorResponse);
+			}
+		}
 
-                    var validationResponse = new ResponseErrorJson(ex.GetErrors());
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(validationResponse);
-                    break;
-                default:
-                    var errorResponse = new ResponseErrorJson(context.Exception.Message);
-
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(errorResponse);
-                    break;
-            }
-        }
-
-        private void ThrowUnkownError(ExceptionContext context)
+		private void ThrowUnkownError(ExceptionContext context)
         {
             var errorResponse = new ResponseErrorJson(ResourceErrorMessages.UNKNOWN_ERROR);
 
