@@ -2,6 +2,7 @@
 using Application.UseCases.Expenses.GetById;
 using Application.UseCases.Expenses.NewFolder;
 using Application.UseCases.Expenses.Register;
+using Application.UseCases.Expenses.Update;
 using Communication.Requests;
 using Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace CashFlow.Api.Controller
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ResponseRegisteredExpenseJson))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseErrorJson))]
-        public async Task<IActionResult> Register([FromBody] RequestRegisterExpenseJson request, [FromServices] IRegisterExpensesUseCase useCase)
+        public async Task<IActionResult> Register([FromBody] RequestExpenseJson request, [FromServices] IRegisterExpensesUseCase useCase)
         {
             var response = await useCase.Execute(request);
 
@@ -60,5 +61,20 @@ namespace CashFlow.Api.Controller
 
             return NoContent();
         }
+
+        [HttpPut]
+        [Route("{id}")]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+		public async Task<IActionResult> Update(
+            [FromServices] IUpdateExpenseUseCase useCase,
+            [FromBody] RequestExpenseJson request,
+            [FromRoute] long id)
+        {
+            await useCase.Execute(id, request);
+
+            return NoContent();
+		}
     }
 }

@@ -5,11 +5,11 @@ using Communication.Enums;
 namespace CommonTestUtilities.Requests;
 public class RequestRegisterExpenseJsonBuilder
 {
-    public static RequestRegisterExpenseJson Build()
+    public static RequestExpenseJson Build()
     {
         var faker =  new Faker("en");
 
-        return new RequestRegisterExpenseJson
+        return new RequestExpenseJson
         {
             Title = faker.Commerce.ProductName(),
             Date = faker.Date.Past(),

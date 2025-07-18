@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Expenses.Register;
+﻿using Application.UseCases.Expenses;
 using CommonTestUtilities.Requests;
 using Communication.Enums;
 using Exception;
@@ -12,7 +12,7 @@ namespace Validators.Tests.Expenses.Register
         public void Success()
         {
             // Arrange
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var request = RequestRegisterExpenseJsonBuilder.Build();
 
             // Act
@@ -32,7 +32,7 @@ namespace Validators.Tests.Expenses.Register
         public void Error_EmptyTitle(string title)
         {
             // Arrange
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var request = RequestRegisterExpenseJsonBuilder.Build();
             request.Title = title;
 
@@ -48,7 +48,7 @@ namespace Validators.Tests.Expenses.Register
         public void Error_Date_Future()
         {
             // Arrange
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var request = RequestRegisterExpenseJsonBuilder.Build();
             request.Date = DateTime.UtcNow.AddDays(1);
 
@@ -64,7 +64,7 @@ namespace Validators.Tests.Expenses.Register
         public void Error_Invalid_PaymentMethod()
         {
             // Arrange
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var request = RequestRegisterExpenseJsonBuilder.Build();
                 
             request.PaymentMethod = (PaymentMethodEnum)999;
@@ -83,7 +83,7 @@ namespace Validators.Tests.Expenses.Register
         public void Error_Invalid_Amount(decimal amount)
         {
             // Arrange
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var request = RequestRegisterExpenseJsonBuilder.Build();
 
             request.Amount = amount;

@@ -3,6 +3,7 @@ using Application.UseCases.Expenses.GetAll;
 using Application.UseCases.Expenses.GetById;
 using Application.UseCases.Expenses.NewFolder;
 using Application.UseCases.Expenses.Register;
+using Application.UseCases.Expenses.Update;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -26,5 +27,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
         services.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
         services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
-    }
+        services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
+	}
 }
